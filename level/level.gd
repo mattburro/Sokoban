@@ -28,6 +28,23 @@ const LAYER_MAP = {
 func _ready():
 	_setup_level()
 
+func _process(delta):
+	pass
+
+#region GAME LOGIC
+
+func move_player(direction: Vector2i):
+	var player_tile = get_player_tile()
+	var next_tile = player_tile + direction
+
+func get_player_tile() -> Vector2i:
+	var player_offset = player.global_position - tile_map.global_position
+	return Vector2i(player_offset / GameData.TILE_SIZE)
+
+#endregion
+
+#region LEVEL SETUP
+
 func _setup_level():
 	tile_map.clear()
 	var level_data = GameData.get_data_for_level("1")
@@ -80,3 +97,5 @@ func _center_camera_on_tiles():
 		((tmr.position.y + tmr.end.y) / 2) * GameData.TILE_SIZE,
 	)
 	camera.global_position = camera_pos
+
+#endregion

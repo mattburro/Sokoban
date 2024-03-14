@@ -21,7 +21,7 @@ const LAYER_MAP = {
 	LAYER_KEY_BOXES: BOX_LAYER
 }
 
-@onready var camera_2d = $Camera2D
+@onready var camera = $Camera2D
 @onready var tile_map = $TileMap
 @onready var player = $Player
 
@@ -30,12 +30,15 @@ func _ready():
 
 func _setup_level():
 	tile_map.clear()
-	var level_data = GameData.get_data_for_level("12")
+	var level_data = GameData.get_data_for_level("1")
 	var level_tiles = level_data.tiles
 	var player_start = level_data.player_start
 	
 	for layer_name in LAYER_MAP.keys():
 		_add_layer_tiles(level_tiles[layer_name], layer_name)
+	
+	_place_player_on_tile(Vector2i(player_start.x, player_start.y))
+	_center_camera_on_tiles()
 
 func _add_layer_tiles(layer_tiles: Array, layer_name: String):
 	for tile_coord in layer_tiles:
@@ -62,3 +65,18 @@ func _get_atlas_coord_for_layer_name(layer_name: String) -> Vector2i:
 			return Vector2i(1, 0)
 		_:
 			return Vector2i(0, 0)
+
+func _place_player_on_tile(tile_pos: Vector2i):
+	var spawn_pos = Vector2(
+		tile_pos.x * GameData.TILE_SIZE,
+		tile_pos.y * GameData.TILE_SIZE
+	) + tile_map.global_position
+	player.global_position = spawn_pos
+
+func _center_camera_on_tiles():
+	var tmr = tile_map.get_used_rect()
+	var camera_pos = Vector2(
+		((tmr.position.x + tmr.end.x) / 2) * GameData.TILE_SIZE,
+		((tmr.position.y + tmr.end.y) / 2) * GameData.TILE_SIZE,
+	)
+	camera.global_position = camera_pos

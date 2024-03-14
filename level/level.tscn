@@ -43,4 +43,4 @@ layer_3/name = "Boxes"
 layer_3/tile_data = PackedInt32Array(524299, 65536, 0, 524300, 65536, 0, 524296, 0, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_butqe")]
-position = Vector2(272, 240)
+position = Vector2(79, 58)

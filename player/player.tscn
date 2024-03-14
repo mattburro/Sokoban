@@ -42,4 +42,5 @@ animations = [{
 sprite_frames = SubResource("SpriteFrames_vpkm5")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.498825
+frame_progress = 0.919374
+offset = Vector2(18, 12)

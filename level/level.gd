@@ -21,6 +21,8 @@ const LAYER_MAP = {
 	LAYER_KEY_BOXES: BOX_LAYER
 }
 
+var _total_moves: int = 0
+
 @onready var camera = $Camera2D
 @onready var tile_map = $TileMap
 @onready var player = $Player
@@ -28,18 +30,69 @@ const LAYER_MAP = {
 func _ready():
 	_setup_level()
 
-func _process(delta):
-	pass
+func _process(delta):	
+	var move_direction: Vector2i = Vector2i.ZERO
+	
+	if Input.is_action_just_pressed("right"):
+		player.flip_h = false
+		move_direction = Vector2i.RIGHT
+	elif Input.is_action_just_pressed("left"):
+		player.flip_h = true
+		move_direction = Vector2i.LEFT
+	elif Input.is_action_just_pressed("up"):
+		move_direction = Vector2i.UP
+	elif Input.is_action_just_pressed("down"):
+		move_direction = Vector2i.DOWN
+	
+	if move_direction != Vector2i.ZERO:
+		_move_player(move_direction)
 
 #region GAME LOGIC
 
-func move_player(direction: Vector2i):
-	var player_tile = get_player_tile()
+func _move_player(direction: Vector2i):
+	var player_tile = _get_player_tile()
 	var next_tile = player_tile + direction
+	var can_move = true
+	var box_seen = false
+	
+	if _is_cell_wall(next_tile):
+		can_move = false
+	elif _is_cell_box(next_tile):
+		box_seen = true
+		can_move = _can_box_move(next_tile, direction)
+	
+	if can_move:
+		_total_moves += 1
+		_place_player_on_tile(next_tile)
+		
+		if box_seen:
+			_move_box(next_tile, direction)
 
-func get_player_tile() -> Vector2i:
+func _get_player_tile() -> Vector2i:
 	var player_offset = player.global_position - tile_map.global_position
 	return Vector2i(player_offset / GameData.TILE_SIZE)
+
+func _can_box_move(box_tile: Vector2i, direction: Vector2i) -> bool:
+	var next_tile = box_tile + direction
+	return _is_cell_empty(next_tile)
+
+func _is_cell_empty(cell: Vector2i) -> bool:
+	return _is_cell_wall(cell) == false && _is_cell_wall(cell) == false
+
+func _is_cell_wall(cell: Vector2i) -> bool:
+	return cell in tile_map.get_used_cells(WALL_LAYER)
+
+func _is_cell_box(cell: Vector2i) -> bool:
+	return cell in tile_map.get_used_cells(BOX_LAYER)
+
+func _move_box(box_tile: Vector2i, direction: Vector2i):
+	tile_map.erase_cell(BOX_LAYER, box_tile)
+	
+	var next_tile = box_tile + direction
+	if next_tile in tile_map.get_used_cells(TARGET_LAYER):
+		tile_map.set_cell(BOX_LAYER, next_tile, SOURCE_ID, _get_atlas_coord_for_layer_name(LAYER_KEY_TARGET_BOXES))
+	else:
+		tile_map.set_cell(BOX_LAYER, next_tile, SOURCE_ID, _get_atlas_coord_for_layer_name(LAYER_KEY_BOXES))
 
 #endregion
 

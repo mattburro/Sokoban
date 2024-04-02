@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://sf8cqrcme8h7"]
+
+[ext_resource type="Texture2D" uid="uid://bok1snb2sin4u" path="res://assets/Gray.png" id="1_sk7fp"]
+[ext_resource type="FontFile" uid="uid://bwnejuvdxt7hw" path="res://assets/LuckiestGuy-Regular.ttf" id="2_5rm7i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aywhf"]
+font = ExtResource("2_5rm7i")
+font_size = 96
+outline_size = 18
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="CanvasLayer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_sk7fp")
+stretch_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SOKOBANY"
+label_settings = SubResource("LabelSettings_aywhf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 6

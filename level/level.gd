@@ -67,6 +67,8 @@ func _move_player(direction: Vector2i):
 		
 		if box_seen:
 			_move_box(next_tile, direction)
+	
+	_is_game_over()
 
 func _get_player_tile() -> Vector2i:
 	var player_offset = player.global_position - tile_map.global_position
@@ -93,6 +95,13 @@ func _move_box(box_tile: Vector2i, direction: Vector2i):
 		tile_map.set_cell(BOX_LAYER, next_tile, SOURCE_ID, _get_atlas_coord_for_layer_name(LAYER_KEY_TARGET_BOXES))
 	else:
 		tile_map.set_cell(BOX_LAYER, next_tile, SOURCE_ID, _get_atlas_coord_for_layer_name(LAYER_KEY_BOXES))
+
+func _is_game_over():
+	for cell in tile_map.get_used_cells(TARGET_LAYER):
+		if not _is_cell_box(cell):
+			return
+	
+	print ("GAME OVER")
 
 #endregion
 

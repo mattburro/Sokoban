@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://sf8cqrcme8h7"]
+[gd_scene load_steps=5 format=3 uid="uid://sf8cqrcme8h7"]
 
+[ext_resource type="Script" path="res://main/main.gd" id="1_hsveb"]
 [ext_resource type="Texture2D" uid="uid://bok1snb2sin4u" path="res://assets/Gray.png" id="1_sk7fp"]
 [ext_resource type="FontFile" uid="uid://bwnejuvdxt7hw" path="res://assets/LuckiestGuy-Regular.ttf" id="2_5rm7i"]
 
@@ -10,6 +11,7 @@ outline_size = 18
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="CanvasLayer"]
+script = ExtResource("1_hsveb")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15

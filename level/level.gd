@@ -30,7 +30,10 @@ var _total_moves: int = 0
 func _ready():
 	_setup_level()
 
-func _process(delta):	
+func _process(delta):
+	if Input.is_action_just_pressed("quit"):
+		GameManager.load_main_scene()
+	
 	var move_direction: Vector2i = Vector2i.ZERO
 	
 	if Input.is_action_just_pressed("right"):
@@ -109,7 +112,8 @@ func _is_game_over():
 
 func _setup_level():
 	tile_map.clear()
-	var level_data = GameData.get_data_for_level("1")
+	var level_number = GameManager.get_level_selected()
+	var level_data = GameData.get_data_for_level(level_number)
 	var level_tiles = level_data.tiles
 	var player_start = level_data.player_start
 	

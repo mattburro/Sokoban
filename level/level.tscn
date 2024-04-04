@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnh46cdgrv5co"]
+[gd_scene load_steps=7 format=3 uid="uid://bnh46cdgrv5co"]
 
 [ext_resource type="Texture2D" uid="uid://btoqojxyrclqv" path="res://assets/spritesheet.png" id="1_14iu6"]
 [ext_resource type="Script" path="res://level/level.gd" id="1_ff0wf"]
 [ext_resource type="PackedScene" uid="uid://ymlagjrk0cxe" path="res://player/player.tscn" id="2_butqe"]
+[ext_resource type="PackedScene" uid="uid://1i0mbqc7ue5j" path="res://hud/hud.tscn" id="4_vljrh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6mv7q"]
 resource_name = "level_tiles"
@@ -44,3 +45,7 @@ layer_3/tile_data = PackedInt32Array(524299, 65536, 0, 524300, 65536, 0, 524296,
 
 [node name="Player" parent="." instance=ExtResource("2_butqe")]
 position = Vector2(79, 58)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("4_vljrh")]

@@ -1,14 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://sf8cqrcme8h7"]
+[gd_scene load_steps=4 format=3 uid="uid://sf8cqrcme8h7"]
 
 [ext_resource type="Script" path="res://main/main.gd" id="1_hsveb"]
 [ext_resource type="Texture2D" uid="uid://bok1snb2sin4u" path="res://assets/Gray.png" id="1_sk7fp"]
-[ext_resource type="FontFile" uid="uid://bwnejuvdxt7hw" path="res://assets/LuckiestGuy-Regular.ttf" id="2_5rm7i"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_aywhf"]
-font = ExtResource("2_5rm7i")
-font_size = 96
-outline_size = 18
-outline_color = Color(0, 0, 0, 1)
+[ext_resource type="LabelSettings" uid="uid://ft26mj3ovhhg" path="res://assets/LG_Title_96.tres" id="3_78l8b"]
 
 [node name="Main" type="CanvasLayer"]
 script = ExtResource("1_hsveb")
@@ -39,7 +33,7 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "SOKOBANY"
-label_settings = SubResource("LabelSettings_aywhf")
+label_settings = ExtResource("3_78l8b")
 horizontal_alignment = 1
 vertical_alignment = 1
 

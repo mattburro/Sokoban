@@ -26,6 +26,8 @@ var _total_moves: int = 0
 @onready var camera = $Camera2D
 @onready var tile_map = $TileMap
 @onready var player = $Player
+@onready var hud = $CanvasLayer/HUD
+@onready var game_over_ui = $CanvasLayer/GameOverUI
 
 func _ready():
 	_setup_level()
@@ -33,6 +35,8 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("quit"):
 		GameManager.load_main_scene()
+	
+	hud.set_moves_label(++_total_moves)
 	
 	var move_direction: Vector2i = Vector2i.ZERO
 	
@@ -104,7 +108,9 @@ func _is_game_over():
 		if not _is_cell_box(cell):
 			return
 	
-	print ("GAME OVER")
+	game_over_ui.show()
+	hud.hide()
+	ScoreManager.level_completed(GameManager.get_level_selected(), _total_moves)
 
 #endregion
 
@@ -122,6 +128,10 @@ func _setup_level():
 	
 	_place_player_on_tile(Vector2i(player_start.x, player_start.y))
 	_center_camera_on_tiles()
+	
+	_total_moves = 0
+	hud.set_moves_label(_total_moves)
+	hud.set_level_label(level_number)
 
 func _add_layer_tiles(layer_tiles: Array, layer_name: String):
 	for tile_coord in layer_tiles:

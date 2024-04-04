@@ -7,6 +7,7 @@ const LEVEL_ROWS: int = 5
 @onready var grid_container = $MarginContainer/VBoxContainer/GridContainer
 
 func _ready():
+	ScoreManager.load_scores()
 	setup_level_buttons()
 
 func setup_level_buttons():

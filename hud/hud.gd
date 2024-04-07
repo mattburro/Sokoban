@@ -12,3 +12,9 @@ func set_moves_label(moves: int):
 
 func set_best_label(best: int):
 	best_label.text = str(best)
+
+func new_game(level: String):
+	set_best_label(ScoreManager.get_level_score(level))
+	set_moves_label(0)
+	set_level_label(level)
+	show()

@@ -9,6 +9,9 @@ var _level_number: String = "99"
 
 func _ready():
 	level_label.text = _level_number
+	
+	if ScoreManager.level_has_score(_level_number):
+		checkmark.show()
 
 func set_level_number(level_number):
 	_level_number = level_number

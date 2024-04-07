@@ -36,6 +36,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("quit"):
 		GameManager.load_main_scene()
 	
+	if Input.is_action_just_pressed("reload"):
+		_setup_level()
+	
 	hud.set_moves_label(++_total_moves)
 	
 	var move_direction: Vector2i = Vector2i.ZERO
@@ -108,8 +111,8 @@ func _is_game_over():
 		if not _is_cell_box(cell):
 			return
 	
-	game_over_ui.show()
 	hud.hide()
+	game_over_ui.game_over(GameManager.get_level_selected(), _total_moves)
 	ScoreManager.level_completed(GameManager.get_level_selected(), _total_moves)
 
 #endregion
@@ -130,8 +133,8 @@ func _setup_level():
 	_center_camera_on_tiles()
 	
 	_total_moves = 0
-	hud.set_moves_label(_total_moves)
-	hud.set_level_label(level_number)
+	hud.new_game(level_number)
+	game_over_ui.new_game()
 
 func _add_layer_tiles(layer_tiles: Array, layer_name: String):
 	for tile_coord in layer_tiles:

@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6416pur2027o"]
+[gd_scene load_steps=8 format=3 uid="uid://c6416pur2027o"]
 
+[ext_resource type="Script" path="res://game_over_ui/game_over_ui.gd" id="1_acx0b"]
 [ext_resource type="Texture2D" uid="uid://bpnu6ryfpff1q" path="res://assets/Purple.png" id="1_ly157"]
 [ext_resource type="Texture2D" uid="uid://b688dsk3old3g" path="res://assets/panel_beigeLight.png" id="2_m34ru"]
 [ext_resource type="FontFile" uid="uid://bwnejuvdxt7hw" path="res://assets/LuckiestGuy-Regular.ttf" id="3_e7mno"]
@@ -31,6 +32,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_acx0b")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -88,9 +90,22 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MovesLabel" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "XXX Moves Taken"
+size_flags_vertical = 3
+alignment = 1
+
+[node name="MovesLabel" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "XXX"
+label_settings = SubResource("LabelSettings_30e4i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = " Moves Taken"
 label_settings = SubResource("LabelSettings_30e4i")
 horizontal_alignment = 1
 vertical_alignment = 1
